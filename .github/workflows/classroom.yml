@@ -1,0 +1,42 @@
+name: Autograding
+
+on: [push]
+
+jobs:
+  grade:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout student repo
+        uses: actions/checkout@v4
+
+      - name: Checkout private tests
+        uses: actions/checkout@v4
+        with:
+          repository: Ivan-Gaidukevich/task_1_tests
+          token: ${{ secrets.TESTS_TOKEN }}
+          path: private_tests
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run tests
+        id: test1
+        run: |
+          PYTHONPATH=$PWD pytest private_tests/tests/tests_all.py -q --tb=no --maxfail=0
+        continue-on-error: true
+
+      - name: Calculate score
+        run: |
+          SCORE=0
+          if [ "${{ steps.test1.outcome }}" == "success" ]; then SCORE=$((SCORE+20)); fi
+          echo "Score: $SCORE/20"
+      
