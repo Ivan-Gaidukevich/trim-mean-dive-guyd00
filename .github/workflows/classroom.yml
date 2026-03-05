@@ -31,7 +31,7 @@ jobs:
       - name: Run tests
         id: test1
         run: |
-          PYTHONPATH=$PWD pytest private_tests/tests/tests_all.py -q --tb=no --maxfail=0
+          PYTHONPATH=$PWD pytest private_tests/tests/tests_all.py -q --tb=no --maxfail=1
         continue-on-error: true
 
       - name: Calculate score
