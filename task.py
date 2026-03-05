@@ -13,4 +13,4 @@ def trim_mean_dive(points: np.array, hard_coef: float = 1.2) -> float:
     # raise ValueError("Количество оценок должно быть 5 или 7.")
     # raise ValueError("Оценки должны быть в диапазоне от 0 до 10.")
     # raise ValueError("Коэффициент сложности должен быть от 1.2 до 3.6.")
-    pass
+    return float(1)
